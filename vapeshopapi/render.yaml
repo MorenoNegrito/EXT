@@ -3,7 +3,7 @@ services:
     name: vapeshop-api
     env: docker
     plan: free
-    dockerfilePath: Dockerfile
+    region: oregon
     envVars:
       - key: SPRING_PROFILES_ACTIVE
         value: prod
