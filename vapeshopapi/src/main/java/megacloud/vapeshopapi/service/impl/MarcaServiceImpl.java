@@ -23,4 +23,25 @@ public class MarcaServiceImpl implements MarcaService {
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Marca no encontrada"));
     }
+
+    @Override
+    public Marca create(Marca marca) {
+        return repository.save(marca);
+    }
+
+    @Override
+    public Marca update(Marca marca) {
+        if (!repository.existsById(marca.getId())) {
+            throw new RuntimeException("Marca no encontrada");
+        }
+        return repository.save(marca);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        if (!repository.existsById(id)) {
+            throw new RuntimeException("Marca no encontrada");
+        }
+        repository.deleteById(id);
+    }
 }

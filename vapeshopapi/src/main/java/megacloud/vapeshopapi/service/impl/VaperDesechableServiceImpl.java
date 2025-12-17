@@ -9,8 +9,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class VaperDesechableServiceImpl
-        implements VaperDesechableService {
+public class VaperDesechableServiceImpl implements VaperDesechableService {
 
     private final VaperDesechableRepository repository;
 
@@ -23,5 +22,26 @@ public class VaperDesechableServiceImpl
     public VaperDesechable findById(Integer id) {
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+    }
+
+    @Override
+    public VaperDesechable create(VaperDesechable vaper) {
+        return repository.save(vaper);
+    }
+
+    @Override
+    public VaperDesechable update(VaperDesechable vaper) {
+        if (!repository.existsById(vaper.getId())) {
+            throw new RuntimeException("Producto no encontrado");
+        }
+        return repository.save(vaper);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        if (!repository.existsById(id)) {
+            throw new RuntimeException("Producto no encontrado");
+        }
+        repository.deleteById(id);
     }
 }
